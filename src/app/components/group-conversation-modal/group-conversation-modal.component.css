@@ -1,0 +1,12 @@
+i {
+    pointer-events: none;
+}
+
+.avatar-wrapper:hover img{
+    filter: brightness(80%);
+}
+
+.avatar-wrapper:hover i {
+    font-size: 20px;
+    display: block!important;
+}

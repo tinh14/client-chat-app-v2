@@ -1,0 +1,71 @@
+<ng-container *ngIf="conversation">
+    <div class="d-flex flex-column h-100 w-100">
+        <!-- Header -->
+        <div class="d-flex justify-content-between border-bottom px-2 py-1 flex-grow-0 w-100">
+            <div class="d-flex align-items-center" style="width: 40%">
+                <img (click)="openUpdateGroupConversationModal()" [src]="getAvatar()" class="rounded-circle"  alt="ChatAvatar" width="50" height="50"/>
+                <div class="ms-3 overflow-hidden">
+                    <div class="h6 text-truncate font-weight-bold">{{getName()}}</div>
+                    <ng-container *ngIf="isGroupConversation()">
+                        <a>{{conversation.participants.length}} participants</a>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="d-flex align-items-center">
+                <i class="fas fa-video-camera p-3" aria-hidden="true"></i>
+                <i class="fas fa-phone p-3" aria-hidden="true"></i>
+                <i class="fas fa-search p-3" aria-hidden="true"></i>
+                <div class="input-group p-3 d-none" >
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Search messages...">
+                </div>
+                <ng-container *ngIf="isGroupConversation()">
+                    <i id="conversationDetailEllipsisDropdown" class="fas fa-ellipsis-vertical p-3" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                    <div class="dropdown">
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="conversationDetailEllipsisDropdown">
+                            <button (click)="onCopyLink()" class="dropdown-item">Copy link</button>
+                            <li><hr class="dropdown-divider"></li>
+                            <button (click)="onLeaveGroup()" class="dropdown-item text-danger">Leave group</button>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <!-- Chat window -->
+        <div #chatWindow  class="position-relative overflow-hidden border-bottom flex-grow-1" >
+            <div class="h-100 overflow-y-auto overflow-x-hidden d-flex flex-column-reverse " (scroll)="onScroll($event)">
+                <ng-container *ngFor="let message of conversation?.messages">
+                    <div [ngSwitch]="isSentMessage(message)" id="{{message.id}}" >
+                        <app-message #messageElements [conversation]="conversation"  [currentMessage]="currentMessage" [message]="message" [messageType]="getMessageType(message)"></app-message>
+                    </div>
+                </ng-container>
+            </div>  
+            <div [class.invisible]="scrollToBottomMode" class="position-absolute start-50 bottom-0 translate-middle-x mb-2">
+                <button (click)="activateScrollToBottomMode()" type="button" class="btn btn-success rounded-circle">
+                    <i class="fas fa-arrow-down" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Input area -->
+        <div class="d-flex align-items-center flex-grow-0">
+            <div class="d-flex align-items-center">
+                <!-- <i class="fas fa-smile-o p-3"  aria-hidden="true"></i> -->
+                <button (click)="onFileChosen()" type="button" class="btn">
+                    <input #fileInput type="file" class="d-none" (change)="onFileSelected($event)">
+                    <i class="fas fa-paperclip py-3 px-1" aria-hidden="true"></i>
+                </button>
+                <button (click)="onVoiceRecorderModalOpened()" type="button" class="btn">
+                    <i class="fas fa-microphone py-3 px-1" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="flex-grow-1">
+                <input #textInput (keyup.enter)="sendTextMessage(textInput)" class="py-3 form-control " type="text"
+                          placeholder="Type a message...">
+            </div>
+        </div>
+    </div>
+</ng-container>

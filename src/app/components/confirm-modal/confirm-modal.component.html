@@ -1,0 +1,13 @@
+<div class="modal-header">
+    <h5 class="modal-title">Confirm action</h5>
+    <button (click)="onClosed()" type="button" class="btn-close" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <p>Are you sure to perform this action?</p>
+</div>
+<div class="modal-footer">
+    <button (click)="onClosed()" type="button" class="btn btn-secondary">Close</button>
+    <button (click)="onConfirmed()" type="button" class="btn btn-success">
+        Confirm
+    </button>
+</div>

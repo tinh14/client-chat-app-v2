@@ -1,0 +1,7 @@
+.toast {
+    --bs-toast-padding-x: 0.5rem;
+}
+
+.toast:hover {
+    cursor: pointer;
+}

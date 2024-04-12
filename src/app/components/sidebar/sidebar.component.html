@@ -1,0 +1,24 @@
+<div class="h-100 bg-success">
+    <div class="d-flex flex-column h-100 justify-content-around">
+        <div class="d-flex flex-column">
+            <a class="btn btn-success p-3" routerLink="/conversations" routerLinkActive="active">
+                <i class="fa-regular fa-comments fa-lg"></i>
+            </a>
+            <a class="btn btn btn-success p-3" routerLink="/contactFeatures" routerLinkActive="active">
+                <i class="fa-regular fa-address-book fa-lg"></i>
+            </a>
+        </div>
+        <div class="btn-group dropend ">
+            <button  class="btn btn btn-success p-3" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-gear fa-lg"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <button (click)="onChangePasswordModalOpened()" class="dropdown-item">Change password</button>
+                <li><hr class="dropdown-divider"></li>
+                <button (click)="onSignedOut()" class="dropdown-item text-danger">Sign out</button>
+                <li><hr class="dropdown-divider"></li>
+                <button (click)="onDeleteAccountModalOpened()" class="dropdown-item text-danger">Delete account</button>
+            </div>
+        </div>
+    </div>
+</div>
